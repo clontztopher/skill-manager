@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activities.Mentee.MenteeEditActivity">
+
+    <include layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/menteeEditMainActivity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingStart="32dp"
+            android:paddingTop="32dp"
+            android:paddingRight="32dp">
+
+            <TextView
+                android:id="@+id/menteeNameLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Name" />
+
+            <EditText
+                android:id="@+id/menteeNameField"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginBottom="16dp"
+                android:ems="10"
+                android:hint="Mentee Name"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Email" />
+
+            <EditText
+                android:id="@+id/menteeEmailField"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginBottom="16dp"
+                android:ems="10"
+                android:hint="Mentee Email"
+                android:inputType="textEmailAddress" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Phone" />
+
+            <EditText
+                android:id="@+id/menteePhoneField"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginBottom="16dp"
+                android:ems="10"
+                android:hint="Mentee Phone"
+                android:inputType="phone" />
+
+            <Button
+                android:id="@+id/saveMentee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="#4CAF50"
+                android:onClick="handleSaveMenteeClick"
+                android:text="Save"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>
