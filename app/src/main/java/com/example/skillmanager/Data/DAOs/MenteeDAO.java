@@ -11,21 +11,16 @@ import androidx.room.Update;
 import com.example.skillmanager.Data.Entities.Mentee;
 
 import java.util.List;
+import java.util.concurrent.Future;
 
 @Dao
-public interface MenteeDAO {
+public interface MenteeDAO extends BaseDAO<Mentee> {
     @Query("SELECT * FROM mentees")
     public LiveData<List<Mentee>> getMentees();
 
-    @Query(("SELECT * FROM mentees WHERE menteeId = :menteeId"))
+    @Query("SELECT * FROM mentees")
+    public List<Mentee> getMenteesSync();
+
+    @Query(("SELECT * FROM mentees WHERE mentee_id = :menteeId"))
     public LiveData<Mentee> findMenteeById(long menteeId);
-
-    @Insert(onConflict = OnConflictStrategy.FAIL)
-    public void insertMentee(Mentee mentee);
-
-    @Update
-    public void updateMentee(Mentee mentee);
-
-    @Delete
-    public void deleteMentee(Mentee mentee);
 }

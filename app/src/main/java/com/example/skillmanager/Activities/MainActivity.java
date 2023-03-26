@@ -8,6 +8,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.skillmanager.MainMenuProvider;
 import com.example.skillmanager.R;
@@ -38,5 +39,9 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         return;
+    }
+
+    public void handleCurrentCycleTouch(View view) {
+        // TODO: Navigate to current cycle
     }
 }

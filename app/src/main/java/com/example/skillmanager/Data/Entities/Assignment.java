@@ -1,112 +1,101 @@
 package com.example.skillmanager.Data.Entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "assignments")
+@Entity(tableName = "assignment")
 public class Assignment {
+
     @PrimaryKey(autoGenerate = true)
-    private long assignmentId;
+    @ColumnInfo(name = "assignment_id")
+    public long assignmentId;
 
-    @ColumnInfo(name = "title")
-    private String mTitle;
+    public String title;
 
-    @ColumnInfo(name = "start_date")
-    private String mStartDateString;
+    public String topic;
 
-    @ColumnInfo(name = "end_date")
-    private String mEndDateString;
+    public String type;
 
-    @ColumnInfo(name = "status")
-    private String mStatus;
+    @Embedded
+    public Project project;
 
-    @ColumnInfo(name = "cycle_id")
-    private long mCycleId;
-
-    @ColumnInfo(name = "notes")
-    private String mNotes;
-
-    @ColumnInfo(name = "start_alert")
-    private boolean startAlert;
-
-    @ColumnInfo(name = "end_alert")
-    private boolean endAlert;
+    @Embedded
+    public Study study;
 
     public long getAssignmentId() {
         return assignmentId;
     }
 
-    public void setAssignmentId(long mId) {
-        this.assignmentId = mId;
+    public void setAssignmentId(long assignmentId) {
+        this.assignmentId = assignmentId;
     }
 
     public String getTitle() {
-        return mTitle;
+        return title;
     }
 
-    public void setTitle(String mTitle) {
-        this.mTitle = mTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getStartDateString() {
-        return mStartDateString;
+    public String getTopic() {
+        return topic;
     }
 
-    public void setStartDateString(String mStartDateString) {
-        this.mStartDateString = mStartDateString;
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
-    public String getEndDateString() {
-        return mEndDateString;
+    public Project getProject() {
+        return project;
     }
 
-    public void setEndDateString(String mEndDateString) {
-        this.mEndDateString = mEndDateString;
+    public void setProject(Project project) {
+        this.project = project;
     }
 
-    public String getStatus() {
-        return mStatus;
+    public Study getStudy() {
+        return study;
     }
 
-    public void setStatus(String mStatus) {
-        this.mStatus = mStatus;
+    public void setStudy(Study study) {
+        this.study = study;
     }
 
-    public long getCycleId() {
-        return mCycleId;
+    public AssignmentType getType() {
+        return AssignmentType.fromString(type);
     }
 
-    public void setCycleId(long mCycleId) {
-        this.mCycleId = mCycleId;
+    public void setType(AssignmentType at) {
+        this.type = at.toString();
     }
 
-    public String getNotes() {
-        return mNotes;
-    }
+    public enum AssignmentType {
+        PROJECT("Project"),
+        STUDY("Study");
 
-    public void setNotes(String mNotes) {
-        this.mNotes = mNotes;
-    }
+        public final String label;
+        private AssignmentType(String label) {
+            this.label = label;
+        }
 
-    public boolean hasStartAlert() {
-        return startAlert;
-    }
+        public static AssignmentType fromString(String type) {
+            switch (type) {
+                case "Project":
+                    return AssignmentType.PROJECT;
+                case "Study":
+                    return AssignmentType.STUDY;
+                default:
+                    return null;
+            }
+        }
 
-    public void setStartAlert(boolean startAlert) {
-        this.startAlert = startAlert;
-    }
-
-    public boolean hasEndAlert() {
-        return endAlert;
-    }
-
-    public void setEndAlert(boolean endAlert) {
-        this.endAlert = endAlert;
-    }
-
-    @Override
-    public String toString() {
-        return getTitle();
+        @Override
+        public String toString() {
+            return this.label;
+        }
     }
 }

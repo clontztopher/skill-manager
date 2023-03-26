@@ -13,23 +13,23 @@ import com.example.skillmanager.R;
 
 public class AssignmentHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private Assignment mAssignment;
-    private TextView mAssignmentNameTextView;
-    private TextView mAssignmentStartTextView;
-    private TextView mAssignmentEndTextView;
+    private TextView titleView;
+    private TextView topicView;
+    private TextView typeView;
 
     public AssignmentHolder(LayoutInflater inflater, ViewGroup parent) {
         super(inflater.inflate(R.layout.list_item_assignment, parent, false));
         itemView.setOnClickListener(this);
-        mAssignmentNameTextView = itemView.findViewById(R.id.assignmentTitleColumn);
-        mAssignmentStartTextView = itemView.findViewById(R.id.assignmentStartColumn);
-        mAssignmentEndTextView = itemView.findViewById(R.id.assignmentEndColumn);
+        titleView = itemView.findViewById(R.id.assignmentTitleColumn);
+        typeView = itemView.findViewById(R.id.assignmentTypeColumn);
+        topicView = itemView.findViewById(R.id.assignmentTopicColumn);
     }
 
     public void bind(Assignment assignment) {
         mAssignment = assignment;
-        mAssignmentNameTextView.setText(mAssignment.getTitle());
-        mAssignmentStartTextView.setText(mAssignment.getStartDateString());
-        mAssignmentEndTextView.setText(mAssignment.getEndDateString());
+        titleView.setText(mAssignment.getTitle());
+        typeView.setText(mAssignment.getType().toString());
+        topicView.setText(mAssignment.getTopic());
     }
 
     @Override

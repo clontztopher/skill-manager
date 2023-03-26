@@ -1,5 +1,6 @@
 package com.example.skillmanager.Activities.Mentee;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.skillmanager.Activities.Cycle.CycleDetailsActivity;
 import com.example.skillmanager.Data.Entities.Mentee;
 import com.example.skillmanager.R;
 
@@ -33,6 +35,8 @@ public class MenteeHolder extends RecyclerView.ViewHolder implements View.OnClic
 
     @Override
     public void onClick(View view) {
-
+        Intent intent = new Intent(view.getContext(), MenteeDetailsActivity.class);
+        intent.putExtra(MenteeDetailsActivity.EXTRA_MENTEE_ID, mMentee.getMenteeId());
+        view.getContext().startActivity(intent);
     }
 }

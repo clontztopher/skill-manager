@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "cycles")
 public class Cycle {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name="id")
-    private long mId;
+    @ColumnInfo(name="cycle_id")
+    private long cycleId;
 
     @ColumnInfo(name = "name")
     private String mDisplayName;
@@ -19,11 +19,11 @@ public class Cycle {
     @ColumnInfo(name = "end_date")
     private String mEndDateString;
 
-    public long getId() {
-        return mId;
+    public long getCycleId() {
+        return cycleId;
     }
 
-    public void setId(long id) { mId = id; }
+    public void setCycleId(long id) { cycleId = id; }
 
     public String getDisplayName() {
         return mDisplayName;

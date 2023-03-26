@@ -11,19 +11,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.skillmanager.Activities.Assessment.AssessmentListActivity;
-import com.example.skillmanager.Activities.Mentee.MenteeListActivity;
 import com.example.skillmanager.Data.Entities.Assignment;
-import com.example.skillmanager.Data.Entities.Cycle;
-import com.example.skillmanager.Data.Repositories.AssignmentRepository;
-import com.example.skillmanager.Data.Repositories.CycleRepository;
+import com.example.skillmanager.Data.Entities.Project;
+import com.example.skillmanager.Data.Entities.Study;
 import com.example.skillmanager.MainMenuProvider;
 import com.example.skillmanager.R;
 import com.google.android.material.navigation.NavigationBarView;
-
-import java.util.concurrent.Future;
 
 public class AssignmentDetailActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
@@ -31,11 +27,16 @@ public class AssignmentDetailActivity extends AppCompatActivity implements Navig
 
     private Assignment mAssignment;
 
-    TextView assignmentTitleView;
-    TextView startDateView;
-    TextView endDateView;
-    TextView assignmentStatusView;
-    TextView assignmentNotesView;
+    TextView titleView;
+    TextView topicView;
+    TextView typeView;
+    TextView requirementsView;
+    TextView feedbackView;
+    TextView referenceView;
+    TextView studyQuestionsView;
+    LinearLayout projectViewGroup;
+    LinearLayout studyViewGroup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +47,11 @@ public class AssignmentDetailActivity extends AppCompatActivity implements Navig
         Intent intent = getIntent();
         long assignmentId = intent.getLongExtra(EXTRA_ASSIGNMENT_ID, -1);
 
-        assignmentTitleView = findViewById(R.id.assignmentDisplayName);
-        startDateView = findViewById(R.id.assignmentStartDateView);
-        endDateView = findViewById(R.id.assignmentEndDateView);
-        assignmentStatusView = findViewById(R.id.assignmentStatusView);
-        assignmentNotesView = findViewById(R.id.assignmentNotesView);
+        titleView = findViewById(R.id.assignmentDisplayName);
+        topicView = findViewById(R.id.topicTextView);
+        typeView = findViewById(R.id.typeTextView);
+        projectViewGroup = findViewById(R.id.projectViewGroup);
+        studyViewGroup = findViewById(R.id.studyViewGroup);
 
         AssignmentViewModel assignmentViewModel = new ViewModelProvider(this).get(AssignmentViewModel.class);
         assignmentViewModel.findById(assignmentId).observe(this, assignment -> {
@@ -79,7 +80,7 @@ public class AssignmentDetailActivity extends AppCompatActivity implements Navig
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_edit) {
             Intent intent = new Intent(this, AssignmentEditActivity.class);
-            intent.putExtra(AssignmentEditActivity.EXTRA_ASSIGNMENT_ID, mAssignment.getAssignmentId());
+            intent.putExtra(AssignmentEditActivity.EXTRA_ASSIGNMENT_ID, mAssignment.assignmentId);
             startActivity(intent);
             return true;
         }
@@ -92,13 +93,26 @@ public class AssignmentDetailActivity extends AppCompatActivity implements Navig
     }
 
     public void render() {
-        assignmentTitleView.setText(mAssignment.getTitle());
-        String startDateStr = mAssignment.getStartDateString();
-        String endDateStr = mAssignment.getEndDateString();
-        startDateView.setText(startDateStr);
-        endDateView.setText(endDateStr);
-        assignmentStatusView.setText(mAssignment.getStatus());
-        assignmentNotesView.setText(mAssignment.getNotes());
+        titleView.setText(mAssignment.getTitle());
+        topicView.setText(mAssignment.getTopic());
+
+        if (mAssignment.getType() == Assignment.AssignmentType.PROJECT) {
+            Project project = mAssignment.getProject();
+            requirementsView = projectViewGroup.findViewById(R.id.requirementsTextView);
+            requirementsView.setText(project.getRequirements());
+        } else {
+            projectViewGroup.setVisibility(View.GONE);
+        }
+
+        if (mAssignment.getType() == Assignment.AssignmentType.STUDY) {
+            Study study = mAssignment.getStudy();
+            referenceView = studyViewGroup.findViewById(R.id.referenceTextView);
+            referenceView.setText(study.getReference());
+            studyQuestionsView = studyViewGroup.findViewById(R.id.studyQuestionsTextView);
+            studyQuestionsView.setText(study.getStudyQuestions());
+        } else {
+            studyViewGroup.setVisibility(View.GONE);
+        }
     }
 
 

@@ -26,21 +26,22 @@ public class MenteePickerFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
         List<Mentee> mentees = new ArrayList<>();
         ArrayAdapter<Mentee> menteeAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1);
         MenteeRepository menteeRepository = new MenteeRepository(getActivity().getApplication());
-//        Future<List<Mentee>> menteeFuture = menteeRepository.getAllMentees();
-//        try {
-//            mentees = menteeFuture.get();
-//            menteeAdapter.addAll(mentees);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        Future<List<Mentee>> menteeFuture = menteeRepository.getAllMenteesSync();
+        try {
+            mentees = menteeFuture.get();
+            menteeAdapter.addAll(mentees);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Assign Assignment Mentee");
+        builder.setTitle("Add Mentee");
         if (mentees.isEmpty()) {
-            builder.setMessage("Please add mentees through the mentee menu before assigning assignments.")
+            builder.setMessage("Please add mentees through the mentee menu to add to a mentee.")
                     .setPositiveButton("Okay", ((dialogInterface, i) -> { return; }));
         } else {
             builder.setAdapter(menteeAdapter, (dialogInterface, i) -> listener.onMenteeSelection(menteeAdapter.getItem(i)));

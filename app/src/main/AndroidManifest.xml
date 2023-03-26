@@ -29,18 +29,6 @@
             android:name=".Activities.Mentee.MenteeListActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.Assessment.AssessmentDetailsActivity"
-            android:exported="false"
-            android:parentActivityName=".Activities.Assessment.AssessmentListActivity" />
-        <activity
-            android:name=".Activities.Assessment.AssessmentEditActivity"
-            android:exported="false"
-            android:parentActivityName=".Activities.Assessment.AssessmentListActivity" />
-        <activity
-            android:name=".Activities.Assessment.AssessmentListActivity"
-            android:exported="false"
-            android:parentActivityName=".Activities.MainActivity" />
-        <activity
             android:name=".Activities.Assignment.AssignmentListActivity"
             android:exported="false"
             android:parentActivityName=".Activities.MainActivity" />

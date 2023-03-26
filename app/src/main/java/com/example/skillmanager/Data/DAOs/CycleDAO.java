@@ -6,27 +6,23 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.skillmanager.Data.Entities.Cycle;
+import com.example.skillmanager.Data.Entities.CycleWithMentees;
 
 import java.util.List;
 
 @Dao
-public interface CycleDAO {
-
+public interface CycleDAO extends BaseDAO<Cycle> {
     @Query("SELECT * FROM cycles")
-    public LiveData<List<Cycle>> getCycles();
+    public abstract LiveData<List<Cycle>> getCycles();
 
-    @Query("SELECT * FROM cycles WHERE id = :id")
-    public LiveData<Cycle> findCycleById(long id);
+    @Query("SELECT * FROM cycles WHERE cycle_id = :id")
+    public abstract LiveData<Cycle> findCycleById(long id);
 
-    @Insert(onConflict =  OnConflictStrategy.FAIL)
-    public void insertCycle(Cycle cycle);
-
-    @Update
-    public void updateCycle(Cycle cycle);
-
-    @Delete
-    public void deleteCycle(Cycle cycle);
+    @Transaction
+    @Query("SELECT * FROM cycles WHERE cycle_id = :cycleId")
+    public abstract LiveData<CycleWithMentees> getCycleWithMentees(long cycleId);
 }

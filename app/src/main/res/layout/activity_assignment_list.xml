@@ -22,7 +22,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:background="#3F51B5">
+            android:background="@color/primary">
 
             <TextView
                 android:id="@+id/viewDispalyName"

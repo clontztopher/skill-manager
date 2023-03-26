@@ -5,18 +5,18 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.example.skillmanager.Data.DAOs.CycleDAO;
-import com.example.skillmanager.Data.Database;
+import com.example.skillmanager.Data.Entities.CycleWithMentees;
+import com.example.skillmanager.Data.SkillManagerDatabase;
 import com.example.skillmanager.Data.Entities.Cycle;
 
 import java.util.List;
-import java.util.concurrent.Future;
 
 public class CycleRepository {
     private CycleDAO cycleDAO;
     private LiveData<List<Cycle>> mCycles;
 
     public CycleRepository(Application application) {
-        Database db = Database.getInstance(application);
+        SkillManagerDatabase db = SkillManagerDatabase.getInstance(application);
         cycleDAO = db.cycleDAO();
         mCycles = cycleDAO.getCycles();
     }
@@ -29,15 +29,19 @@ public class CycleRepository {
         return cycleDAO.findCycleById(id);
     }
 
+    public LiveData<CycleWithMentees> getCycleWithMentees(long cycleId) {
+        return cycleDAO.getCycleWithMentees(cycleId);
+    }
+
     public void insert(Cycle cycle) {
-        Database.databaseWriteExecutor.execute(() -> cycleDAO.insertCycle(cycle));
+        SkillManagerDatabase.databaseWriteExecutor.execute(() -> cycleDAO.insert(cycle));
     }
 
     public void update(Cycle cycle) {
-        Database.databaseWriteExecutor.execute(() -> cycleDAO.updateCycle(cycle));
+        SkillManagerDatabase.databaseWriteExecutor.execute(() -> cycleDAO.update(cycle));
     }
 
     public void delete(Cycle cycle) {
-        Database.databaseWriteExecutor.execute(() -> cycleDAO.deleteCycle(cycle));
+        SkillManagerDatabase.databaseWriteExecutor.execute(() -> cycleDAO.delete(cycle));
     }
 }

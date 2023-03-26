@@ -35,7 +35,7 @@ public class CycleHolder extends RecyclerView.ViewHolder implements View.OnClick
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(view.getContext(), CycleDetailsActivity.class);
-        intent.putExtra(CycleDetailsActivity.EXTRA_TERM_ID, mCycle.getId());
+        intent.putExtra(CycleDetailsActivity.EXTRA_CYCLE_ID, mCycle.getCycleId());
         view.getContext().startActivity(intent);
     }
 }

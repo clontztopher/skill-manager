@@ -33,9 +33,6 @@ import java.util.List;
  * 4. Cycles in list are clickable and go to CycleDetail with cycleId extra
  */
 public class CycleListActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
-    private List<Cycle> mCycles = new ArrayList<>();
-    private RecyclerView recyclerView;
-    private TextView noCyclesView;
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -65,8 +62,8 @@ public class CycleListActivity extends AppCompatActivity implements NavigationBa
         setContentView(R.layout.activity_cycle_list);
         addNavigation();
 
-        noCyclesView = findViewById(R.id.noCyclesView);
-        recyclerView = findViewById(R.id.cycle_recycler);
+        TextView noCyclesView = findViewById(R.id.noCyclesView);
+        RecyclerView recyclerView = findViewById(R.id.cycle_recycler);
 
         noCyclesView.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);

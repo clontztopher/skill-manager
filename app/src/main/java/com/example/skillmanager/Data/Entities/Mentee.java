@@ -7,15 +7,13 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "mentees")
 public class Mentee {
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "mentee_id")
     private long menteeId;
 
-    @ColumnInfo(name = "name")
     private String name;
 
-    @ColumnInfo(name = "email")
     private String email;
 
-    @ColumnInfo(name = "phone")
     private String phone;
 
     public long getMenteeId() {

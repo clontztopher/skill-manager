@@ -29,7 +29,7 @@ public class CycleAdapter extends ListAdapter<Cycle, CycleHolder> {
     public static final DiffUtil.ItemCallback<Cycle> DIFF_CALLBACK = new DiffUtil.ItemCallback<Cycle>() {
         @Override
         public boolean areItemsTheSame(@NonNull Cycle oldItem, @NonNull Cycle newItem) {
-            return oldItem.getId() == newItem.getId();
+            return oldItem.getCycleId() == newItem.getCycleId();
         }
 
         @Override

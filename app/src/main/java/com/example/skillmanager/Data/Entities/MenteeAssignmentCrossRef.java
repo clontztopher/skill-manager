@@ -5,14 +5,14 @@ import androidx.room.Entity;
 
 @Entity(
         tableName = "mentee_assignments",
-        primaryKeys = {"menteeId", "assignmentId"}
+        primaryKeys = {"mentee_id", "assignment_id"}
 )
 public class MenteeAssignmentCrossRef {
 
-    @ColumnInfo(name = "menteeId")
+    @ColumnInfo(name = "mentee_id")
     private long menteeId;
 
-    @ColumnInfo(name = "assignmentId")
+    @ColumnInfo(name = "assignment_id")
     private long assignmentId;
 
     public long getMenteeId() {

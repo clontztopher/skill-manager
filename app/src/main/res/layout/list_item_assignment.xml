@@ -16,16 +16,17 @@
         android:text="Assignment Title" />
 
     <TextView
-        android:id="@+id/assignmentStartColumn"
+        android:id="@+id/assignmentTopicColumn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Assignment Start" />
+        android:text="Assignment Topic" />
 
     <TextView
-        android:id="@+id/assignmentEndColumn"
+        android:id="@+id/assignmentTypeColumn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Assignment End" />
+        android:text="Assignment Type" />
+
 </LinearLayout>

@@ -1,15 +1,12 @@
 <resources>
     <string name="app_name">Skill Manager</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string-array name="assignment_status_array">
-        <item>In Progress</item>
-        <item>Completed</item>
-        <item>Dropped</item>
-        <item>Plan to Take</item>
+    <string-array name="assignment_type_array">
+        <item>Project</item>
+        <item>Study</item>
     </string-array>
-    <string-array name="assessment_type_array">
-        <item>Objective Assessment</item>
-        <item>Project Assessment</item>
+    <string-array name="assignment_proficiency">
+        <item>Needs Work</item>
+        <item>Getting There</item>
+        <item>Ready for More</item>
     </string-array>
 </resources>

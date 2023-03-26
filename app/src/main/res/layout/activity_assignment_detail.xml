@@ -21,121 +21,23 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#3F51B5">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="16dp">
+                android:padding="32dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="#3F51B5"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/assignmentDisplayName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginBottom="32dp"
-                        android:text="Assignment Display Name"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/assignmentDisplayName"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="16dp"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView12"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="16dp"
-                            android:text="Start Date"
-                            android:textColor="#00BCD4"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/assignmentStartDateView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Start Date"
-                            android:textColor="#FBFAFA"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView11"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="16dp"
-                            android:text="End Date"
-                            android:textColor="@color/teal_200"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/assignmentEndDateView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="End Date"
-                            android:textColor="#FAF6F6"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView13"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="16dp"
-                            android:text="Assignment Status"
-                            android:textColor="#00BCD4"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/assignmentStatusView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="TextView"
-                            android:textColor="#FFFFFF"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-                </LinearLayout>
+                    android:layout_marginBottom="32dp"
+                    android:text="Assignment Display Name"
+                    android:textColor="@color/primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <View
                     android:id="@+id/divider4"
@@ -143,30 +45,125 @@
                     android:layout_height="1dp"
                     android:layout_marginBottom="16dp"
                     android:background="?android:attr/listDivider"
-                    android:backgroundTint="#00BCD4" />
+                    android:backgroundTint="@color/black" />
 
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/topicLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="Assignment Notes"
-                    android:textColor="#00BCD4"
+                    android:layout_marginBottom="8dp"
+                    android:text="Assignment Topic"
+                    android:textColor="#353535"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/assignmentNotesView"
+                    android:id="@+id/topicTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginEnd="32dp"
                     android:layout_marginBottom="16dp"
-                    android:minHeight="100dp"
-                    android:text="No notes yet."
-                    android:textColor="#FDFCFC"
+                    android:text="TextView"
                     android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/typeLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Assignment Type"
+                    android:textColor="#353535"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/typeTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:id="@+id/projectViewGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/requirementsLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Project Requirements"
+                        android:textColor="#353535"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/requirementsTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:text="TextView"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/feedbackLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Project Feedback"
+                        android:textColor="#353535"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/feedbackTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:text="TextView"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/studyViewGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/referenceLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Study Reference"
+                        android:textColor="#353535"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/referenceTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:text="TextView"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/studyQuestionsLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Study Questions"
+                        android:textColor="#353535"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/studyQuestionsTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:text="TextView"
+                        android:textSize="16sp" />
+                </LinearLayout>
 
             </LinearLayout>
         </ScrollView>

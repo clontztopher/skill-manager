@@ -4,7 +4,7 @@
     android:id="@+id/mainNav"
     android:layout_width="match_parent"
     android:layout_height="68dp"
-    android:background="#3F51B5"
+    android:background="@color/primary"
     app:itemIconTint="@color/white"
     app:itemTextColor="#FFFFFF"
     app:menu="@menu/main_navigation_items"

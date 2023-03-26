@@ -37,7 +37,7 @@ import java.util.concurrent.Future;
  * 3. Flag for edit/add decycleination. Accepts cycleId extra if editing.
  */
 public class CycleEditActivity extends AppCompatActivity implements View.OnFocusChangeListener, DatePickerDialog.OnDateSetListener {
-    public static final String ARG_TERM_ID = "cycleId";
+    public static final String ARG_CYCLE_ID = "cycleId";
     private final DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
     private boolean addingNewCycle = false;
     private Cycle mCycle;
@@ -51,7 +51,7 @@ public class CycleEditActivity extends AppCompatActivity implements View.OnFocus
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cycle_edit);
 
-        long cycleId = getIntent().getLongExtra(ARG_TERM_ID, -1);
+        long cycleId = getIntent().getLongExtra(ARG_CYCLE_ID, -1);
 
         addToolbar();
 

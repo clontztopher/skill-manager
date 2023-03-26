@@ -17,7 +17,7 @@ public class AssignmentViewModel extends AndroidViewModel {
     }
 
     public LiveData<Assignment> findById(long id) {
-        return assignmentRepository.findAssignmentById(id);
+        return assignmentRepository.findById(id);
     }
 
     public void insert(Assignment assignment) {

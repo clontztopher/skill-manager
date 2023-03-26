@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.example.skillmanager.Data.DAOs.AssignmentDAO;
-import com.example.skillmanager.Data.Database;
+import com.example.skillmanager.Data.SkillManagerDatabase;
 import com.example.skillmanager.Data.Entities.Assignment;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.concurrent.Future;
 public class AssignmentRepository {
     private AssignmentDAO assignmentDAO;
     public AssignmentRepository(Application application) {
-        Database db = Database.getInstance(application);
+        SkillManagerDatabase db = SkillManagerDatabase.getInstance(application);
         assignmentDAO = db.assignmentDAO();
     }
 
@@ -22,23 +22,23 @@ public class AssignmentRepository {
         return assignmentDAO.getAllAssignments();
     }
 
-    public LiveData<Assignment> findAssignmentById(long id) {
-        return assignmentDAO.findAssignmentById(id);
+    public Future<List<Assignment>> getAllAssignmentsSync() {
+        return SkillManagerDatabase.databaseWriteExecutor.submit(() -> assignmentDAO.getAllAssignmentsSync());
     }
-    
-    public LiveData<List<Assignment>> getAssignmentsByCycle(long cycleId) {
-        return assignmentDAO.getAssignmentsByCycle(cycleId);
+
+    public LiveData<Assignment> findById(long id) {
+        return assignmentDAO.findById(id);
     }
 
     public void insert(Assignment assignment) {
-        Database.databaseWriteExecutor.execute(() -> assignmentDAO.insertAssignment(assignment));
+        SkillManagerDatabase.databaseWriteExecutor.execute(() -> assignmentDAO.insert(assignment));
     }
 
     public void update(Assignment assignment) {
-        Database.databaseWriteExecutor.execute(() -> assignmentDAO.updateAssignment(assignment));
+        SkillManagerDatabase.databaseWriteExecutor.execute(() -> assignmentDAO.update(assignment));
     }
 
     public void delete(Assignment assignment) {
-        Database.databaseWriteExecutor.execute(() -> assignmentDAO.deleteAssignment(assignment));
+        SkillManagerDatabase.databaseWriteExecutor.execute(() -> assignmentDAO.delete(assignment));
     }
 }

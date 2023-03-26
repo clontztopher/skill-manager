@@ -29,7 +29,7 @@ public class AlertIntentService extends BroadcastReceiver {
 
 
     public void createNotificationChannel(Context context) {
-        CharSequence name = "Upcoming Assignment/Assessment";
+        CharSequence name = "Upcoming Assignment/ProjectAssignmentCrossRef";
         String description = "Opt-in notifications for upcoming assignments and assessments.";
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL, name, importance);

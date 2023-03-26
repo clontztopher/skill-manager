@@ -6,10 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.AlarmManager;
 import android.app.DatePickerDialog;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,40 +16,35 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.skillmanager.Data.Entities.Assignment;
-import com.example.skillmanager.Data.Repositories.AssessmentRepository;
-import com.example.skillmanager.Data.Repositories.AssignmentRepository;
+import com.example.skillmanager.Data.Entities.Project;
+import com.example.skillmanager.Data.Entities.Study;
 import com.example.skillmanager.Fragments.DatePickerFragment;
 import com.example.skillmanager.R;
-import com.example.skillmanager.Utility.AlertIntentService;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.Future;
 
-public class AssignmentEditActivity extends AppCompatActivity implements View.OnFocusChangeListener, DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener {
+public class AssignmentEditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final String EXTRA_ASSIGNMENT_ID = "assignmentId";
-    private final DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
     private boolean addingNewAssignment = false;
     private Assignment mAssignment;
-    private TextView assignmentTitleField;
-    private TextView startDateField;
-    private TextView endDateField;
-    private Spinner statusSpinner;
-    private TextView assignmentNotesField;
-    private Switch startAlertToggle;
-    private Switch endAlertToggle;
-    private Object activeDateSelection;
-    private ArrayAdapter<CharSequence> statusSpinnerAdapter;
+    private TextView titleField;
+    private TextView topicField;
+    private Spinner typeSpinner;
+    private TextView requirementsField;
+    private TextView referenceField;
+    private TextView questionsField;
+    private LinearLayout projectFields;
+    private LinearLayout studyFields;
+    private ArrayAdapter<CharSequence> typeSpinnerAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,11 +54,24 @@ public class AssignmentEditActivity extends AppCompatActivity implements View.On
 
         addToolbar();
 
-        assignViews();
+        titleField = findViewById(R.id.assignmentTitleField);
+        topicField = findViewById(R.id.topicField);
+        projectFields = findViewById(R.id.projectFields);
+        requirementsField = projectFields.findViewById(R.id.requirementsField);
+        studyFields = findViewById(R.id.studyFields);
+        referenceField = studyFields.findViewById(R.id.referenceField);
+        questionsField = studyFields.findViewById(R.id.questionsField);
+
+        typeSpinner = findViewById(R.id.typeSpinner);
+        typeSpinner.setOnItemSelectedListener(this);
+        typeSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.assignment_type_array, android.R.layout.simple_spinner_item);
+        typeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(typeSpinnerAdapter);
 
         if (assignmentId == -1) {
             mAssignment = new Assignment();
             addingNewAssignment = true;
+            projectFields.setVisibility(View.VISIBLE);
             return;
         }
 
@@ -77,35 +82,22 @@ public class AssignmentEditActivity extends AppCompatActivity implements View.On
         });
     }
 
-    private void assignViews() {
-        // Text input fields
-        assignmentTitleField = findViewById(R.id.assignmentTitleField);
-        assignmentNotesField = findViewById(R.id.assignmentNotesInput);
-
-        // Date fields
-        startDateField = findViewById(R.id.assignmentStartDateField);
-        endDateField = findViewById(R.id.assignmentEndDateField);
-        startDateField.setOnFocusChangeListener(this);
-        endDateField.setOnFocusChangeListener(this);
-
-        // Spinners
-        statusSpinner = findViewById(R.id.statusSpinner);
-        statusSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.assignment_status_array, android.R.layout.simple_spinner_item);
-        statusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        statusSpinner.setAdapter(statusSpinnerAdapter);
-
-        // Alert Toggles
-        startAlertToggle = findViewById(R.id.assignmentStartAlertSwitch);
-        endAlertToggle = findViewById(R.id.assignmentEndAlertSwitch);
-    }
-
     private void setAssignmentViews() {
-        assignmentTitleField.setText(mAssignment.getTitle());
-        startDateField.setText(mAssignment.getStartDateString());
-        endDateField.setText(mAssignment.getEndDateString());
-        assignmentNotesField.setText(mAssignment.getNotes());
-        startAlertToggle.setChecked(mAssignment.hasStartAlert());
-        endAlertToggle.setChecked(mAssignment.hasEndAlert());
+        titleField.setText(mAssignment.getTitle());
+        topicField.setText(mAssignment.getTopic());
+        typeSpinner.setSelection(typeSpinnerAdapter.getPosition(mAssignment.getType().toString()));
+
+        if (mAssignment.getType() == Assignment.AssignmentType.PROJECT) {
+            Project project = mAssignment.getProject();
+            projectFields.setVisibility(View.VISIBLE);
+            requirementsField.setText(project.getRequirements());
+        }
+
+        if (mAssignment.getType() == Assignment.AssignmentType.STUDY) {
+            Study study = mAssignment.getStudy();
+            referenceField.setText(study.getReference());
+            questionsField.setText(study.getStudyQuestions());
+        }
     }
 
     private void addToolbar() {
@@ -115,41 +107,36 @@ public class AssignmentEditActivity extends AppCompatActivity implements View.On
     }
 
     public void handleSaveAssignmentClick(View view) {
-        String assignmentTitle = assignmentTitleField.getText().toString();
-        String assignmentStartDateString = startDateField.getText().toString();
-        String assignmentEndDateString = endDateField.getText().toString();
-        String assignmentNotesString = assignmentNotesField.getText().toString();
-        String assignmentStatus = statusSpinner.getSelectedItem().toString();
+        Project project = new Project();
+        Study study = new Study();
 
-        if (assignmentTitle.equals("") || assignmentEndDateString.equals("") || assignmentStartDateString.equals("")) {
-            Toast.makeText(this, "Missing required fields.", Toast.LENGTH_SHORT).show();
-            return;
+        String title = titleField.getText().toString();
+        String topic = topicField.getText().toString();
+        Assignment.AssignmentType type = Assignment.AssignmentType.fromString(typeSpinner.getSelectedItem().toString());
+
+        mAssignment.setTitle(title);
+        mAssignment.setTopic(topic);
+        mAssignment.setType(type);
+
+        if (type == Assignment.AssignmentType.PROJECT) {
+            String requirements = requirementsField.getText().toString();
+            project.setRequirements(requirements);
         }
 
-        LocalDate startDate;
-        LocalDate endDate;
-
-        try {
-            startDate = LocalDate.parse(assignmentStartDateString, dtFormatter);
-            endDate = LocalDate.parse(assignmentEndDateString, dtFormatter);
-        } catch (Exception e) {
-            Toast.makeText(this, "Please use the correct date format: MM/DD/YYYY", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-            return;
+        if (type == Assignment.AssignmentType.STUDY) {
+            String reference = referenceField.getText().toString();
+            String questions = questionsField.getText().toString();
+            study.setReference(reference);
+            study.setStudyQuestions(questions);
         }
 
-        if (startDate.isAfter(endDate)) {
-            Toast.makeText(this, "Start date must be after end date.", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        mAssignment.setProject(project);
+        mAssignment.setStudy(study);
 
-        mAssignment.setTitle(assignmentTitle);
-        mAssignment.setStartDateString(startDate.format(dtFormatter));
-        mAssignment.setEndDateString(endDate.format(dtFormatter));
-        mAssignment.setStatus(assignmentStatus);
-        mAssignment.setNotes(assignmentNotesString);
-        mAssignment.setStartAlert(startAlertToggle.isChecked());
-        mAssignment.setEndAlert(endAlertToggle.isChecked());
+//        if (title.equals("") || topic.equals("") || assignmentStartDateString.equals("")) {
+//            Toast.makeText(this, "Missing required fields.", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
 
         AssignmentViewModel assignmentViewModel = new ViewModelProvider(this).get(AssignmentViewModel.class);
 
@@ -161,33 +148,6 @@ public class AssignmentEditActivity extends AppCompatActivity implements View.On
         finish();
     }
 
-    @Override
-    public void onFocusChange(View view, boolean inFocus) {
-        if(inFocus) {
-            activeDateSelection = view.getTag();
-            DialogFragment dialogFragment = new DatePickerFragment();
-            dialogFragment.show(getSupportFragmentManager(), "datePicker");
-        }
-    }
-
-    @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-        LocalDate date = LocalDate.of(year, month + 1, day);
-        String dateString = date.format(dtFormatter);
-
-        if (activeDateSelection.equals(startDateField.getTag())) {
-            startDateField.setText(dateString);
-            startDateField.clearFocus();
-        }
-
-        if (activeDateSelection.equals(endDateField.getTag())) {
-            endDateField.setText(dateString);
-            endDateField.clearFocus();
-        }
-
-        activeDateSelection = null;
-    }
-
     private void deleteAssignment() {
         AssignmentViewModel assignmentViewModel = new ViewModelProvider(this).get(AssignmentViewModel.class);
         assignmentViewModel.delete(mAssignment);
@@ -195,13 +155,27 @@ public class AssignmentEditActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        // Mandatory callback for interface
+        if (adapterView.getId() != typeSpinner.getId()) {
+            return;
+        }
+
+        Assignment.AssignmentType assignmentType = Assignment.AssignmentType.fromString(adapterView.getSelectedItem().toString());
+
+        if (assignmentType == Assignment.AssignmentType.PROJECT) {
+            projectFields.setVisibility(View.VISIBLE);
+            studyFields.setVisibility(View.GONE);
+        }
+
+        if (assignmentType == Assignment.AssignmentType.STUDY) {
+            studyFields.setVisibility(View.VISIBLE);
+            projectFields.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-        if (!addingNewAssignment && adapterView.getId() == statusSpinner.getId()) {
-            adapterView.setSelection(statusSpinnerAdapter.getPosition(mAssignment.getStatus()));
+        if (!addingNewAssignment && adapterView.getId() == typeSpinner.getId()) {
+            adapterView.setSelection(typeSpinnerAdapter.getPosition(mAssignment.getType().toString()));
         }
     }
 

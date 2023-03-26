@@ -13,26 +13,9 @@ import com.example.skillmanager.Data.Entities.MenteeAssignmentCrossRef;
 import java.util.List;
 
 @Dao
-public interface MenteeAssignmentDAO {
+public interface MenteeAssignmentDAO extends BaseDAO<MenteeAssignmentCrossRef> {
     @Query("SELECT * FROM mentee_assignments " +
-            "INNER JOIN mentees ON mentees.menteeId = mentee_assignments.menteeId " +
-            "WHERE mentee_assignments.assignmentId = :assignmentId")
+            "INNER JOIN mentees ON mentees.mentee_id = mentee_assignments.mentee_id " +
+            "WHERE mentee_assignments.assignment_id = :assignmentId")
     public List<Mentee> findMenteesForAssignment(long assignmentId);
-
-    @Query("SELECT * FROM mentee_assignments " +
-            "INNER JOIN mentees ON mentees.menteeId = mentee_assignments.menteeId " +
-            "WHERE mentee_assignments.assignmentId != :assignmentId")
-    public List<Mentee> getMenteesNotAssigned(long assignmentId);
-
-    @Insert(onConflict = OnConflictStrategy.FAIL)
-    public void insert(MenteeAssignmentCrossRef menteeAssignmentCrossRef);
-
-    @Update
-    public void update(MenteeAssignmentCrossRef menteeAssignmentCrossRef);
-
-    @Delete
-    public void delete(MenteeAssignmentCrossRef menteeAssignmentCrossRef);
-
-    @Query("DELETE FROM mentee_assignments WHERE menteeId = :menteeId")
-    public void removeFromAssignments(long menteeId);
 }
