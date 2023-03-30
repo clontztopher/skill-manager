@@ -8,15 +8,13 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.skillmanager.Data.DAOs.AssignmentDAO;
-import com.example.skillmanager.Data.DAOs.MenteeAssignmentDAO;
 import com.example.skillmanager.Data.DAOs.CycleDAO;
-import com.example.skillmanager.Data.DAOs.MenteeCycleDAO;
+import com.example.skillmanager.Data.DAOs.MenteeAssignmentDAO;
 import com.example.skillmanager.Data.DAOs.MenteeDAO;
 import com.example.skillmanager.Data.Entities.Assignment;
 import com.example.skillmanager.Data.Entities.Cycle;
 import com.example.skillmanager.Data.Entities.MenteeAssignmentCrossRef;
 import com.example.skillmanager.Data.Entities.Mentee;
-import com.example.skillmanager.Data.Entities.MenteeCycleCrossRef;
 import com.example.skillmanager.Data.Entities.Project;
 import com.example.skillmanager.Data.Entities.Study;
 
@@ -28,7 +26,6 @@ import java.util.concurrent.Executors;
             Assignment.class,
             Mentee.class,
             MenteeAssignmentCrossRef.class,
-            MenteeCycleCrossRef.class
         },
         version = 1,
         exportSchema = false)
@@ -107,6 +104,4 @@ public abstract class SkillManagerDatabase extends RoomDatabase {
     public abstract AssignmentDAO assignmentDAO();
     public abstract MenteeDAO menteeDAO();
     public abstract MenteeAssignmentDAO menteeAssignmentDAO();
-
-    public abstract MenteeCycleDAO menteeCycleDAO();
 }

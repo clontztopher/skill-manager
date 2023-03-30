@@ -3,10 +3,8 @@ package com.example.skillmanager.Activities.Assignment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,21 +13,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.skillmanager.Data.Entities.Assignment;
 import com.example.skillmanager.Data.Entities.Project;
 import com.example.skillmanager.Data.Entities.Study;
-import com.example.skillmanager.Fragments.DatePickerFragment;
+import com.example.skillmanager.Activities.ViewModels.AssignmentViewModel;
 import com.example.skillmanager.R;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class AssignmentEditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final String EXTRA_ASSIGNMENT_ID = "assignmentId";
@@ -196,30 +188,4 @@ public class AssignmentEditActivity extends AppCompatActivity implements Adapter
         }
         return super.onOptionsItemSelected(item);
     }
-
-//    private void setAlerts() {
-//        Duration oneWeek = Duration.ofDays(7);
-//        if (startAlertToggle.isChecked()) {
-//            LocalDateTime start = LocalDate.parse(assignment.getStartDateString(), dtFormatter).atStartOfDay();
-//            LocalDateTime startAlertTime = start.minus(oneWeek);
-//            ZonedDateTime zonedDateTime = ZonedDateTime.of(startAlertTime, ZoneId.systemDefault());
-//            long startAlertMillis = zonedDateTime.toInstant().toEpochMilli();
-//            Intent startAlertIntent = new Intent(AssignmentEditActivity.this, AlertIntentService.class);
-//            startAlertIntent.putExtra(AlertIntentService.EXTRA_ALERT_TITLE, "Assignment Alert: " + assignment.getTitle() + " starts on " + assignment.getStartDateString());
-//            PendingIntent startAlertSender = PendingIntent.getBroadcast(AssignmentEditActivity.this, ++AlertIntentService.numAlert, startAlertIntent, PendingIntent.FLAG_IMMUTABLE);
-//            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//            alarmManager.set(AlarmManager.RTC_WAKEUP, startAlertMillis, startAlertSender);
-//        }
-//        if (endAlertToggle.isChecked()) {
-//            LocalDateTime end = LocalDate.parse(assignment.getEndDateString(), dtFormatter).atStartOfDay();
-//            LocalDateTime endAlertTime = end.minus(oneWeek);
-//            ZonedDateTime zonedDateTime = ZonedDateTime.of(endAlertTime, ZoneId.systemDefault());
-//            long endAlertMillis = zonedDateTime.toInstant().toEpochMilli();
-//            Intent endAlertIntent = new Intent(AssignmentEditActivity.this, AlertIntentService.class);
-//            endAlertIntent.putExtra(AlertIntentService.EXTRA_ALERT_TITLE, "Assignment Alert: " + assignment.getTitle() + " ends on " + assignment.getEndDateString());
-//            PendingIntent endAlertSender = PendingIntent.getBroadcast(AssignmentEditActivity.this, ++AlertIntentService.numAlert, endAlertIntent, PendingIntent.FLAG_IMMUTABLE);
-//            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//            alarmManager.set(AlarmManager.RTC_WAKEUP, endAlertMillis, endAlertSender);
-//        }
-//    }
 }

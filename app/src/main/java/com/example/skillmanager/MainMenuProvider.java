@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import com.example.skillmanager.Activities.Assignment.AssignmentListActivity;
 import com.example.skillmanager.Activities.Mentee.MenteeListActivity;
 import com.example.skillmanager.Activities.Cycle.CycleListActivity;
+import com.example.skillmanager.Activities.Reports.ReportsActivity;
 
 public abstract class MainMenuProvider {
     public static boolean navItemSelected(MenuItem item, Context context) {
@@ -23,6 +24,11 @@ public abstract class MainMenuProvider {
             }
             case R.id.action_mentees: {
                 Intent intent = new Intent(context, MenteeListActivity.class);
+                context.startActivity(intent);
+                return true;
+            }
+            case R.id.action_reports: {
+                Intent intent = new Intent(context, ReportsActivity.class);
                 context.startActivity(intent);
                 return true;
             }

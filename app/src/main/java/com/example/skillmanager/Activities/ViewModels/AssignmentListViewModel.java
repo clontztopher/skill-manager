@@ -1,4 +1,4 @@
-package com.example.skillmanager.Activities.Assignment;
+package com.example.skillmanager.Activities.ViewModels;
 
 import android.app.Application;
 
@@ -11,15 +11,15 @@ import com.example.skillmanager.Data.Repositories.AssignmentRepository;
 import java.util.List;
 
 public class AssignmentListViewModel extends AndroidViewModel {
-    private LiveData<List<Assignment>> mAssignemnts;
+    private LiveData<List<Assignment>> mAssignments;
 
     public AssignmentListViewModel(Application app) {
         super(app);
         AssignmentRepository assignmentRepository = new AssignmentRepository(app);
-        mAssignemnts = assignmentRepository.getAllAssignments();
+        mAssignments = assignmentRepository.getAllAssignments();
     }
 
     public LiveData<List<Assignment>> getAssignments() {
-        return mAssignemnts;
+        return mAssignments;
     }
 }

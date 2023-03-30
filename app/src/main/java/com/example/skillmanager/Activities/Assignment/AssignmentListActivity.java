@@ -16,17 +16,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.skillmanager.Data.Entities.Assignment;
-import com.example.skillmanager.Data.Entities.Cycle;
-import com.example.skillmanager.Data.Repositories.AssignmentRepository;
-import com.example.skillmanager.Data.Repositories.CycleRepository;
+import com.example.skillmanager.Activities.ViewModels.AssignmentListViewModel;
 import com.example.skillmanager.MainMenuProvider;
 import com.example.skillmanager.R;
 import com.google.android.material.navigation.NavigationBarView;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Future;
 
 public class AssignmentListActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
     @Override

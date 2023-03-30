@@ -16,13 +16,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.skillmanager.Data.Entities.Cycle;
+import com.example.skillmanager.Activities.ViewModels.CycleListViewModel;
 import com.example.skillmanager.MainMenuProvider;
 import com.example.skillmanager.R;
 import com.google.android.material.navigation.NavigationBarView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Cycle List View

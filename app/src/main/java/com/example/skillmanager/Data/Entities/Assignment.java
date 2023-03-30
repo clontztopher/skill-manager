@@ -73,6 +73,11 @@ public class Assignment {
         this.type = at.toString();
     }
 
+    @Override
+    public String toString() {
+        return title;
+    }
+
     public enum AssignmentType {
         PROJECT("Project"),
         STUDY("Study");

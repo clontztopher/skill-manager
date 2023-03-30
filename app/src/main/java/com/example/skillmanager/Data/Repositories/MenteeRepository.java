@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.example.skillmanager.Data.DAOs.MenteeDAO;
+import com.example.skillmanager.Data.Entities.MenteeWithAssignments;
 import com.example.skillmanager.Data.SkillManagerDatabase;
 import com.example.skillmanager.Data.Entities.Mentee;
 
@@ -28,6 +29,10 @@ public class MenteeRepository {
     }
     public LiveData<Mentee> findMenteeById(long menteeId) {
         return menteeDAO.findMenteeById(menteeId);
+    }
+
+    public LiveData<List<MenteeWithAssignments>> getMenteesForCycle(long cycleId) {
+        return menteeDAO.getMenteesForCycle(cycleId);
     }
     public void addNewMentee(Mentee mentee) {
         SkillManagerDatabase.databaseWriteExecutor.execute(() -> menteeDAO.insert(mentee));

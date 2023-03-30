@@ -1,4 +1,4 @@
-package com.example.skillmanager.Activities.Mentee;
+package com.example.skillmanager.Activities.ViewModels;
 
 import android.app.Application;
 

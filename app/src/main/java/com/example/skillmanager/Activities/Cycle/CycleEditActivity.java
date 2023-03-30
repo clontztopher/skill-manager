@@ -17,17 +17,13 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.skillmanager.Data.Entities.Assignment;
 import com.example.skillmanager.Data.Entities.Cycle;
-import com.example.skillmanager.Data.Repositories.AssignmentRepository;
-import com.example.skillmanager.Data.Repositories.CycleRepository;
+import com.example.skillmanager.Activities.ViewModels.CycleViewModel;
 import com.example.skillmanager.Fragments.DatePickerFragment;
 import com.example.skillmanager.R;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.concurrent.Future;
 
 /**
  * Add/Edit Cycle

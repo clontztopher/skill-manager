@@ -13,12 +13,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.skillmanager.Data.Entities.Mentee;
-import com.example.skillmanager.Data.Repositories.MenteeRepository;
+import com.example.skillmanager.Activities.ViewModels.MenteeViewModel;
 import com.example.skillmanager.MainMenuProvider;
 import com.example.skillmanager.R;
 import com.google.android.material.navigation.NavigationBarView;
-
-import java.util.concurrent.Future;
 
 public class MenteeDetailsActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 

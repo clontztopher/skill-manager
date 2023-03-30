@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/assignmentListViewNested"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingEnd="32dp">
+
+    <View
+        android:id="@+id/divider8"
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/accent" />
+
+    <TextView
+        android:id="@+id/assignmentTitleColumnNested"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="32dp"
+        android:layout_weight="2"
+        android:gravity="center_vertical"
+        android:text="Assignment Title" />
+
+    <Button
+        android:id="@+id/removeAssignment"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_vertical"
+        android:layout_weight="0"
+        android:background="#00FFFFFF"
+        android:drawableEnd="@drawable/baseline_remove_circle_outline_24" />
+
+</LinearLayout>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activities.Assignment.AddAssignmentActivity">
+
+    <include layout="@layout/toolbar" />
+
+    <ScrollView
+        android:id="@+id/assignmentAddMainScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="-16dp">
+
+            <TextView
+                android:id="@+id/assignmentMenteeLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choose Mentee" />
+
+            <Spinner
+                android:id="@+id/menteeSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:contentDescription="Choose Mentee"
+                android:spinnerMode="dropdown" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choose Assignment" />
+
+            <Spinner
+                android:id="@+id/assignmentSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:contentDescription="Choose Assignment"
+                android:spinnerMode="dropdown" />
+
+            <TextView
+                android:id="@+id/assignmentStatusLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                android:visibility="gone" />
+
+            <Spinner
+                android:id="@+id/assignmentStatusSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/addAssignmentButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="#4CAF50"
+                android:onClick="handleAddAssignmentAction"
+                android:text="Edit Assignment"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

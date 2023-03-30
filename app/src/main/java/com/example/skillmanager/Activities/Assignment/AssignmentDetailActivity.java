@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.skillmanager.Data.Entities.Assignment;
 import com.example.skillmanager.Data.Entities.Project;
 import com.example.skillmanager.Data.Entities.Study;
+import com.example.skillmanager.Activities.ViewModels.AssignmentViewModel;
 import com.example.skillmanager.MainMenuProvider;
 import com.example.skillmanager.R;
 import com.google.android.material.navigation.NavigationBarView;
