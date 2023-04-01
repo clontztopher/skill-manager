@@ -49,6 +49,8 @@ public class ReportsActivity extends AppCompatActivity implements NavigationBarV
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Email Report");
         setSupportActionBar(toolbar);
+        NavigationBarView navBar = findViewById(R.id.main_nav);
+        navBar.setOnItemSelectedListener(this);
     }
 
     @Override

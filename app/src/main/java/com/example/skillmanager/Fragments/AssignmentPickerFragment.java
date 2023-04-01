@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 
 import com.example.skillmanager.Data.Entities.Assignment;
 import com.example.skillmanager.Data.Repositories.AssignmentRepository;
+import com.example.skillmanager.Data.SkillManagerDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +32,11 @@ public class AssignmentPickerFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
 
         long menteeId = getArguments().getLong(ARG_MENTEE_ID);
+        SkillManagerDatabase db = SkillManagerDatabase.getInstance(getActivity().getApplication());
 
         List<Assignment> assignments = new ArrayList<>();
         ArrayAdapter<Assignment> assignmentAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1);
-        AssignmentRepository assignmentRepository = new AssignmentRepository(getActivity().getApplication());
+        AssignmentRepository assignmentRepository = new AssignmentRepository(db);
         Future<List<Assignment>> assignmentFuture = assignmentRepository.getAllAssignmentsSync();
         try {
             assignments = assignmentFuture.get();

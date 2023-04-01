@@ -15,13 +15,13 @@ public class MenteeWithAssignment {
             entityColumn = "assignment_id",
             associateBy = @Junction(MenteeAssignmentCrossRef.class)
     )
-    public List<Assignment> assignments;
+    public Assignment assignment;
 
     public String status;
 
     public Mentee getMentee() { return mentee; }
 
-    public List<Assignment> getAssignments() { return assignments; }
+    public Assignment getAssignment() { return assignment; }
 
     public MenteeAssignmentCrossRef.Status getStatus() {
         return MenteeAssignmentCrossRef.Status.fromString(this.status);

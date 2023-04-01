@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.skillmanager.Data.Entities.EmailReportItem;
 import com.example.skillmanager.Data.Repositories.AssignmentRepository;
+import com.example.skillmanager.Data.SkillManagerDatabase;
 
 import java.util.List;
 
@@ -15,7 +16,8 @@ public class ReportsViewModel extends AndroidViewModel {
 
     public ReportsViewModel(Application app) {
         super(app);
-        assignmentRepository = new AssignmentRepository(app);
+        SkillManagerDatabase db = SkillManagerDatabase.getInstance(app);
+        assignmentRepository = new AssignmentRepository(db);
     }
 
     public LiveData<List<EmailReportItem>> getEmailReportData() {

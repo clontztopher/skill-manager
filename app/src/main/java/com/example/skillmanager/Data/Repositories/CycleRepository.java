@@ -17,8 +17,7 @@ public class CycleRepository {
     private MenteeAssignmentDAO menteeAssignmentDAO;
     private LiveData<List<Cycle>> mCycles;
 
-    public CycleRepository(Application application) {
-        SkillManagerDatabase db = SkillManagerDatabase.getInstance(application);
+    public CycleRepository(SkillManagerDatabase db) {
         cycleDAO = db.cycleDAO();
         mCycles = cycleDAO.getCycles();
 

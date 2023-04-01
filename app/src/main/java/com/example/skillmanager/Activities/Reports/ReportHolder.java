@@ -30,8 +30,14 @@ public class ReportHolder extends RecyclerView.ViewHolder {
 
     public void bind(EmailReportItem emailReportItem) {
         this.emailReportItem = emailReportItem;
-        LocalDateTime emailDT = LocalDateTime.parse(emailReportItem.getEmailDate());
-        String formattedDate = emailDT.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        String formattedDate;
+        if (emailReportItem.getEmailDate() != null) {
+            String dateString = emailReportItem.getEmailDate();
+            LocalDateTime emailDT = LocalDateTime.parse(dateString);
+            formattedDate = emailDT.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        } else {
+            formattedDate = "Not Sent";
+        }
         cycleNameView.setText(emailReportItem.getCycleName());
         menteeNameView.setText(emailReportItem.getMenteeName());
         emailDateView.setText(formattedDate);

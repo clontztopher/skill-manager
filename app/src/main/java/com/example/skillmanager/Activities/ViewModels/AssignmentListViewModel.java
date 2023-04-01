@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.skillmanager.Data.Entities.Assignment;
 import com.example.skillmanager.Data.Repositories.AssignmentRepository;
+import com.example.skillmanager.Data.SkillManagerDatabase;
 
 import java.util.List;
 
@@ -15,7 +16,8 @@ public class AssignmentListViewModel extends AndroidViewModel {
 
     public AssignmentListViewModel(Application app) {
         super(app);
-        AssignmentRepository assignmentRepository = new AssignmentRepository(app);
+        SkillManagerDatabase db = SkillManagerDatabase.getInstance(app);
+        AssignmentRepository assignmentRepository = new AssignmentRepository(db);
         mAssignments = assignmentRepository.getAllAssignments();
     }
 

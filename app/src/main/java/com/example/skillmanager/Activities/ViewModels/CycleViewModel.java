@@ -5,17 +5,18 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.skillmanager.Data.Entities.Assignment;
 import com.example.skillmanager.Data.Entities.Cycle;
 import com.example.skillmanager.Data.Entities.Mentee;
 import com.example.skillmanager.Data.Entities.MenteeAssignmentCrossRef;
-import com.example.skillmanager.Data.Entities.MenteeWithAssignments;
 import com.example.skillmanager.Data.Repositories.AssignmentRepository;
 import com.example.skillmanager.Data.Repositories.CycleRepository;
 import com.example.skillmanager.Data.Repositories.MenteeRepository;
+import com.example.skillmanager.Data.SkillManagerDatabase;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.concurrent.Future;
+import java.util.Map;
 
 public class CycleViewModel extends AndroidViewModel {
     private CycleRepository cycleRepository;
@@ -24,15 +25,16 @@ public class CycleViewModel extends AndroidViewModel {
 
     public CycleViewModel(Application app) {
         super(app);
-        cycleRepository = new CycleRepository(app);
-        menteeRepository = new MenteeRepository(app);
-        assignmentRepository = new AssignmentRepository(app);
+        SkillManagerDatabase db = SkillManagerDatabase.getInstance(app);
+        cycleRepository = new CycleRepository(db);
+        menteeRepository = new MenteeRepository(db);
+        assignmentRepository = new AssignmentRepository(db);
     }
     public LiveData<Cycle> getCycle(long id) {
         return cycleRepository.getCycleById(id);
     }
 
-    public LiveData<List<MenteeWithAssignments>> getMenteesForCycle(long cycleId) {
+    public LiveData<Map<Mentee, List<Assignment>>> getMenteesForCycle(long cycleId) {
         return menteeRepository.getMenteesForCycle(cycleId);
     }
 

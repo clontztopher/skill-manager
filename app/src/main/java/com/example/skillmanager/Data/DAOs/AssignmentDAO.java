@@ -6,7 +6,6 @@ import androidx.room.Query;
 
 import com.example.skillmanager.Data.Entities.Assignment;
 import com.example.skillmanager.Data.Entities.MenteeWithAssignment;
-import com.example.skillmanager.Data.Entities.MenteeWithAssignments;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ public interface AssignmentDAO extends BaseDAO<Assignment> {
     @Query("SELECT * FROM assignment WHERE assignment_id = :id")
     public LiveData<Assignment> findById(long id);
 
-    @Query("SELECT DISTINCT * FROM mentee_assignments " +
+    @Query("SELECT * FROM mentee_assignments " +
             "INNER JOIN cycles, mentees, assignment " +
             "ON mentee_assignments.mentee_id = :menteeId " +
             "AND mentee_assignments.assignment_id = :assignmentId " +

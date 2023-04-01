@@ -24,15 +24,15 @@ import com.example.skillmanager.Activities.ViewModels.CycleViewModel;
 import com.example.skillmanager.Data.Entities.Assignment;
 import com.example.skillmanager.Data.Entities.Cycle;
 import com.example.skillmanager.Data.Entities.Mentee;
-import com.example.skillmanager.Data.Entities.MenteeAssignmentCrossRef;
-import com.example.skillmanager.Data.Entities.MenteeWithAssignments;
 import com.example.skillmanager.MainMenuProvider;
 import com.example.skillmanager.R;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -46,7 +46,7 @@ import java.util.stream.Collectors;
 public class CycleDetailsActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener, TextWatcher {
     public static final String EXTRA_CYCLE_ID = "cycleId";
     private Cycle mCycle;
-    private List<MenteeWithAssignments> mMentees;
+    private Map<Mentee, List<Assignment>> mMentees;
     private TextView cycleDisplayView;
     private TextView startDateView;
     private TextView endDateView;
@@ -126,31 +126,30 @@ public class CycleDetailsActivity extends AppCompatActivity implements Navigatio
         LinearLayout menteeListContainer = menteeListScrollView.findViewById(R.id.menteeListContainer);
         menteeListContainer.removeAllViews();
         String searchParams = menteeSearchView.getText().toString();
-        List<MenteeWithAssignments> mentees = searchParams.equals("")
-                ? mMentees
-                : mMentees.stream()
-                    .filter(menteeWithAssignments -> menteeWithAssignments.getMentee().getName().toLowerCase().contains(searchParams.toLowerCase()))
-                    .collect(Collectors.toList());
-        for (MenteeWithAssignments mentee: mentees) {
+        Set<Map.Entry<Mentee, List<Assignment>>> mentees = searchParams.equals("")
+            ? mMentees.entrySet()
+            : mMentees.entrySet().stream().filter(entry -> entry.getKey().getName().toLowerCase().contains(searchParams.toLowerCase())).collect(Collectors.toSet());
+        for (Map.Entry<Mentee, List<Assignment>> entry: mentees) {
+            Mentee mentee = entry.getKey();
             LayoutInflater inflater = LayoutInflater.from(this);
             LinearLayout menteeItem = (LinearLayout) inflater.inflate(R.layout.list_item_cycle_mentee, null);
             TextView nameView = menteeItem.findViewById(R.id.cycleMenteeName);
-            nameView.setText(mentee.getMentee().getName());
+            nameView.setText(mentee.getName());
             Button sendAssignmentsBtn = menteeItem.findViewById(R.id.sendAssignmentsBtn);
-            sendAssignmentsBtn.setTag(mentee.getMentee().getMenteeId());
+            sendAssignmentsBtn.setTag(mentee.getMenteeId());
             sendAssignmentsBtn.setOnClickListener(this);
 
             LinearLayout assignmentContainer = menteeItem.findViewById(R.id.menteeAssignmentContainer);
-            for (Assignment assignment: mentee.getAssignments()) {
+            for (Assignment assignment: entry.getValue()) {
                 LayoutInflater assignmentInflater = LayoutInflater.from(this);
                 LinearLayout assignmentView = (LinearLayout) assignmentInflater.inflate(R.layout.list_item_assignment_nested, null);
-                long[] tag = {mCycle.getCycleId(), mentee.getMentee().getMenteeId(), assignment.getAssignmentId()};
+                long[] tag = {mCycle.getCycleId(), mentee.getMenteeId(), assignment.getAssignmentId()};
                 assignmentView.setTag(tag);
                 assignmentView.setOnClickListener(this);
                 TextView titleView = assignmentView.findViewById(R.id.assignmentTitleColumnNested);
                 titleView.setText(assignment.getTitle());
                 Button removeAssignment = assignmentView.findViewById(R.id.removeAssignment);
-                removeAssignment.setTag(new long[]{mentee.getMentee().getMenteeId(), assignment.getAssignmentId()});
+                removeAssignment.setTag(new long[]{mentee.getMenteeId(), assignment.getAssignmentId()});
                 removeAssignment.setOnClickListener(this);
                 assignmentContainer.addView(assignmentView);
             }
@@ -183,13 +182,12 @@ public class CycleDetailsActivity extends AppCompatActivity implements Navigatio
             startActivity(intent);
         }
         if (view.getId() == R.id.sendAssignmentsBtn) {
-            Optional<MenteeWithAssignments> menteeWithAssignmentsOptional = mMentees.stream().filter(mentee -> mentee.getMentee().getMenteeId() == (long) view.getTag()).findFirst();
-            if (!menteeWithAssignmentsOptional.isPresent()) {
+            Optional<Map.Entry<Mentee, List<Assignment>>> entryOptional = mMentees.entrySet().stream().filter(entry -> entry.getKey().getMenteeId() == (long) view.getTag()).findFirst();
+            if (!entryOptional.isPresent()) {
                 return;
             }
-            MenteeWithAssignments menteeWithAssignments = menteeWithAssignmentsOptional.get();
-            Mentee mentee = menteeWithAssignments.getMentee();
-            List<Assignment> assignments = menteeWithAssignments.getAssignments();
+            Mentee mentee = entryOptional.get().getKey();
+            List<Assignment> assignments = entryOptional.get().getValue();
 
             CycleViewModel cycleViewModel = new ViewModelProvider(this).get(CycleViewModel.class);
             cycleViewModel.updateEmailSent(mCycle.getCycleId(), mentee.getMenteeId());

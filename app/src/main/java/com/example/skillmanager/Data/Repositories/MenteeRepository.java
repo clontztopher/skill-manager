@@ -5,18 +5,18 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.example.skillmanager.Data.DAOs.MenteeDAO;
-import com.example.skillmanager.Data.Entities.MenteeWithAssignments;
+import com.example.skillmanager.Data.Entities.Assignment;
 import com.example.skillmanager.Data.SkillManagerDatabase;
 import com.example.skillmanager.Data.Entities.Mentee;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Future;
 
 public class MenteeRepository {
     private MenteeDAO menteeDAO;
     private LiveData<List<Mentee>> mMentees;
-    public MenteeRepository(Application application) {
-        SkillManagerDatabase db = SkillManagerDatabase.getInstance(application);
+    public MenteeRepository(SkillManagerDatabase db) {
         menteeDAO = db.menteeDAO();
         mMentees = menteeDAO.getMentees();
     }
@@ -31,7 +31,7 @@ public class MenteeRepository {
         return menteeDAO.findMenteeById(menteeId);
     }
 
-    public LiveData<List<MenteeWithAssignments>> getMenteesForCycle(long cycleId) {
+    public LiveData<Map<Mentee, List<Assignment>>> getMenteesForCycle(long cycleId) {
         return menteeDAO.getMenteesForCycle(cycleId);
     }
     public void addNewMentee(Mentee mentee) {

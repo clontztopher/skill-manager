@@ -15,7 +15,6 @@ import com.example.skillmanager.Data.Entities.Assignment;
 import com.example.skillmanager.Data.Entities.Mentee;
 import com.example.skillmanager.Data.Entities.MenteeAssignmentCrossRef;
 import com.example.skillmanager.Data.Entities.MenteeWithAssignment;
-import com.example.skillmanager.Data.Entities.MenteeWithAssignments;
 import com.example.skillmanager.R;
 
 public class AddAssignmentActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -79,7 +78,7 @@ public class AddAssignmentActivity extends AppCompatActivity implements AdapterV
                 mMenteeWithAssignment = menteeWithAssignment;
 
                 menteeAdapter.add(menteeWithAssignment.getMentee());
-                assignmentAdapter.addAll(menteeWithAssignment.getAssignments());
+                assignmentAdapter.add(menteeWithAssignment.getAssignment());
                 menteeSpinner.setEnabled(false);
                 menteeSpinner.setClickable(false);
                 assignmentSpinner.setEnabled(false);

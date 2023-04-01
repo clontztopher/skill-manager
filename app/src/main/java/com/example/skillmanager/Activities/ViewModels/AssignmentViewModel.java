@@ -7,13 +7,15 @@ import androidx.lifecycle.LiveData;
 
 import com.example.skillmanager.Data.Entities.Assignment;
 import com.example.skillmanager.Data.Repositories.AssignmentRepository;
+import com.example.skillmanager.Data.SkillManagerDatabase;
 
 public class AssignmentViewModel extends AndroidViewModel {
     private AssignmentRepository assignmentRepository;
 
     public AssignmentViewModel(Application app) {
         super(app);
-        assignmentRepository = new AssignmentRepository(app);
+        SkillManagerDatabase db = SkillManagerDatabase.getInstance(app);
+        assignmentRepository = new AssignmentRepository(db);
     }
 
     public LiveData<Assignment> findById(long id) {

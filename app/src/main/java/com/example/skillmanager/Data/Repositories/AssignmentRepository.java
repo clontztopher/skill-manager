@@ -9,7 +9,6 @@ import com.example.skillmanager.Data.DAOs.MenteeAssignmentDAO;
 import com.example.skillmanager.Data.Entities.EmailReportItem;
 import com.example.skillmanager.Data.Entities.MenteeAssignmentCrossRef;
 import com.example.skillmanager.Data.Entities.MenteeWithAssignment;
-import com.example.skillmanager.Data.Entities.MenteeWithAssignments;
 import com.example.skillmanager.Data.SkillManagerDatabase;
 import com.example.skillmanager.Data.Entities.Assignment;
 
@@ -19,8 +18,7 @@ import java.util.concurrent.Future;
 public class AssignmentRepository {
     private AssignmentDAO assignmentDAO;
     private MenteeAssignmentDAO menteeAssignmentDAO;
-    public AssignmentRepository(Application application) {
-        SkillManagerDatabase db = SkillManagerDatabase.getInstance(application);
+    public AssignmentRepository(SkillManagerDatabase db) {
         assignmentDAO = db.assignmentDAO();
         menteeAssignmentDAO = db.menteeAssignmentDAO();
     }

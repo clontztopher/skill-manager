@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 
 import com.example.skillmanager.Data.Entities.Mentee;
 import com.example.skillmanager.Data.Repositories.MenteeRepository;
+import com.example.skillmanager.Data.SkillManagerDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +27,10 @@ public class MenteePickerFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
+        SkillManagerDatabase db = SkillManagerDatabase.getInstance(getActivity().getApplication());
         List<Mentee> mentees = new ArrayList<>();
         ArrayAdapter<Mentee> menteeAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1);
-        MenteeRepository menteeRepository = new MenteeRepository(getActivity().getApplication());
+        MenteeRepository menteeRepository = new MenteeRepository(db);
         Future<List<Mentee>> menteeFuture = menteeRepository.getAllMenteesSync();
         try {
             mentees = menteeFuture.get();

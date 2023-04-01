@@ -9,10 +9,10 @@ import com.example.skillmanager.Data.Entities.Assignment;
 import com.example.skillmanager.Data.Entities.Mentee;
 import com.example.skillmanager.Data.Entities.MenteeAssignmentCrossRef;
 import com.example.skillmanager.Data.Entities.MenteeWithAssignment;
-import com.example.skillmanager.Data.Entities.MenteeWithAssignments;
 import com.example.skillmanager.Data.Repositories.AssignmentRepository;
 import com.example.skillmanager.Data.Repositories.CycleRepository;
 import com.example.skillmanager.Data.Repositories.MenteeRepository;
+import com.example.skillmanager.Data.SkillManagerDatabase;
 
 import java.util.List;
 
@@ -24,9 +24,10 @@ public class AddAssignmentViewModel extends AndroidViewModel {
 
     public AddAssignmentViewModel(Application app) {
         super(app);
-        cycleRepository = new CycleRepository(app);
-        menteeRepository = new MenteeRepository(app);
-        assignmentRepository = new AssignmentRepository(app);
+        SkillManagerDatabase db = SkillManagerDatabase.getInstance(app);
+        cycleRepository = new CycleRepository(db);
+        menteeRepository = new MenteeRepository(db);
+        assignmentRepository = new AssignmentRepository(db);
     }
 
     public LiveData<List<Assignment>> getAssignments() {
